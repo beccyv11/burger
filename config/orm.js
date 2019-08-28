@@ -50,25 +50,14 @@ var orm = {
       cb(result);
     });
   },
-  insertOne: function(table, cols, vals, cb) {
-    var queryString = "INSERT INTO " + table;
-
-    queryString += " (";
-    queryString += cols.toString();
-    queryString += ") ";
-    queryString += "VALUES (";
-    queryString += printQuestionMarks(vals.length);
-    queryString += ") ";
-
-    console.log(queryString);
-
-    connection.query(queryString, vals, function(err, result) {
-      if (err) {
-        throw err;
+  create: function(tableInput, val, cb) {
+    connection.query(
+      "INSERT INTO " + tableInput + " (burger_name) VALUES ('" + val + "');",
+      function(err, result) {
+        if (err) throw err;
+        cb(result);
       }
-
-      cb(result);
-    });
+    );
   },
   // An example of objColVals would be {name: panther, sleepy: true}
   update: function(tableInput, condition, cb) {
@@ -82,9 +71,4 @@ var orm = {
   }
 };
 
-// Export the orm object for the model (cat.js).
 module.exports = orm;
-
-// * `selectAll()`
-// * `insertOne()`
-// * `updateOne()`

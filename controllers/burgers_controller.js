@@ -13,16 +13,11 @@ router.get("/", function(req, res) {
   });
 });
 
-// router.post("/api/burgers", function(req, res) {
-//   burger.create(
-//     ["burger_name", "devoured"],
-//     [req.body.burger_name, req.body.devoured],
-//     function(result) {
-//       // Send back the ID of the new quote
-//       res.json({ id: result.insertId });
-//     }
-//   );
-// });
+router.post("/burgers/create", function(req, res) {
+  burger.create(req.body.burger_name, function(result) {
+    res.redirect("/");
+  });
+});
 
 router.put("/burgers/update", function(req, res) {
   burger.update(req.body.burger_id, function(result) {
